@@ -1,3 +1,11 @@
+def avisa_campeao_atual dados
+    puts "Nosso campeão atual é #{dados[0]} com #{dados[1]} pontos."
+end
+
+def avisa_pontos_totais pontos_totais
+    puts "Vocẽ possui #{pontos_totais}."
+end
+
 def avisa_chute_efetuado(chute)
     puts "Você já chutou #{chute}!"
 end
@@ -11,7 +19,19 @@ def avisa_letra_encontrada total_encontrado
 end
 
 def avisa_acertou_palavra
-    puts "Parabéns! Acertou!"
+    puts "\nParabéns, você ganhou!"
+    puts
+    puts "      ____________      "
+    puts "     '._==_==_==_.'     "
+    puts "     .-\\:       /-.    "
+    puts "    | (|:.      |) |    "
+    puts "     '-|:.      |-'     "
+    puts "       \\::.     /      "
+    puts "        '::. .'         "
+    puts "          ) (           "
+    puts "        _.' '._         "
+    puts "       '_______'        "
+    puts
 end
 
 def avisa_errou_palavra
@@ -23,7 +43,9 @@ def avisa_pontos pontos_ate_agora
 end
 
 def da_boas_vindas
-    puts "Bem vindo ao jogo da forca"
+    puts "/*****************/\n"
+    puts "/* Jogo da Forca */\n"
+    puts "/*****************/\n\n"
     puts "Qual é o seu nome?"
     nome = gets.strip
     puts "\n\n\n\n\n\n"
@@ -31,10 +53,41 @@ def da_boas_vindas
     nome
 end
 
-def escolhe_palavra_secreta
+def desenha_forca erros
+    cabeca = "   "
+    bracos = "   "
+    pernas = "   "
+    corpo = " "
+    if erros >= 1
+        cabeca = "(_)"
+    end
+    if erros >= 2
+        bracos = " | "
+        corpo = "|"
+    end
+    if erros >= 3
+        bracos = "\\|/"
+    end
+    if erros >= 4
+        pernas = "/ \\"
+    end
+    puts "  _______       \n"
+    puts " |/      |      \n"
+    puts " |      #{cabeca}  \n"
+    puts " |      #{bracos}   \n"
+    puts " |       #{corpo}     \n"
+    puts " |      #{pernas}   \n"
+    puts " |              \n"
+    puts "_|__"
+    puts " \n\n"
+end
+
+def avisa_escolhendo_palavra
     puts "Escolhendo uma palavra secreta..."
-    palavra_secreta = "programador"
-    puts "Palavra secreta com #{palavra_secreta.size} letras... boa sorte!"
+end
+
+def avisa_palavra_escolhida palavra_secreta
+    puts "Palavra secreta com #{palavra_secreta.size} letras... Boa sorte!"
     palavra_secreta
 end
 
@@ -46,6 +99,7 @@ end
 
 def cabecalho_de_tentativa chutes, erros, mascara
     puts "\n\n\n\n"
+    desenha_forca erros
     puts "Palavra secreta: #{mascara}"
     puts "Erros até agora: #{erros}"
     puts "Chutes até agora: #{chutes}"
@@ -53,7 +107,7 @@ end
 
 def pede_um_chute
     puts "Entre com uma letra ou uma palavra"
-    chute = gets.strip
+    chute = gets.strip.downcase
     puts "Será que acertou? Você chutou #{chute}"
     chute
 end

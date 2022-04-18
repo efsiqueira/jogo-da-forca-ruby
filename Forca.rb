@@ -1,4 +1,18 @@
 require_relative 'Ui'
+require_relative 'Rank'
+
+def escolhe_palavra_secreta
+    avisa_escolhendo_palavra
+    arquivo = File.new("Dicionario.txt")
+    quantidade_de_palavras = arquivo.gets.to_i
+    numero_escolhido = rand(quantidade_de_palavras)
+    for linha in 1..(numero_escolhido-1)
+        arquivo.gets
+    end
+    palavra_secreta = arquivo.gets.strip.downcase
+    arquivo.close
+    avisa_palavra_escolhida palavra_secreta
+end
 
 def palavra_mascarada chutes, palavra_secreta
     mascara = ""
@@ -62,13 +76,22 @@ def joga(nome)
     end
 
     avisa_pontos pontos_ate_agora
+    pontos_ate_agora
 end
 
 def jogo_da_forca
     nome = da_boas_vindas
+    pontos_totais = 0
+
+    avisa_campeao_atual le_rank
 
     loop do
-        joga nome
+        pontos_totais += joga nome
+        avisa_pontos_totais pontos_totais
+
+        if le_rank[1].to_i < pontos_totais
+            salva_rank nome, pontos_totais
+        end
         break if nao_quer_jogar?
     end
 end
